@@ -1,0 +1,72 @@
+{
+    "openmm": {
+        "stage_order": 0,
+        "parallelism": 12,
+        "num_tasks": 12,
+        "predecessors": {
+            "initial_data": {
+                "inputs": [
+                ]
+            }
+        },
+        "outputs": [
+            "stage\\d{4}_task\\d{4}\\.dcd",
+            "stage\\d{4}_task\\d{4}\\.h5"
+        ]
+    },
+    "aggregate": {
+        "stage_order": 1,
+        "parallelism": 1,
+        "num_tasks": 1,
+        "predecessors": {
+            "openmm": {
+                "inputs": [
+                    "stage\\d{4}_task\\d{4}\\.h5"
+                ]
+            }
+        },
+        "outputs": [
+            "aggregated.h5"
+        ]
+    },
+    "training": {
+        "stage_order": 1,
+        "parallelism": 1,
+        "num_tasks": 1,
+        "predecessors": {
+            "openmm": {
+                "inputs": [
+                    "stage\\d{4}_task\\d{4}\\.h5"
+                ]
+            },
+            "aggregate": {
+                "inputs": [
+                    "aggregated.h5"
+                        ]
+            }
+        },
+        "outputs": [
+            "virtual_stage0000+_task[0-9]+\\.h5",
+            "embeddings-epoch-[0-9]+-[0-9]{8}-[0-9]{6}\\.h5",
+            "epoch-[0-9]+-[0-9]{8}-[0-9]{6}\\.pt",
+            "generator-weights\\.pt",
+            "encoder-weights\\.pt",
+            "discriminator-weights\\.pt"
+        ]
+    },
+    "inference": {
+        "stage_order": 2,
+        "parallelism": 1,
+        "num_tasks": 1,
+        "predecessors":{
+            "openmm": {
+                "inputs": [
+                    "stage\\d{4}_task\\d{4}\\.h5"
+                ]
+            }
+        },
+        "outputs": [
+            "virtual_stage0003+_task[0-9]+\\.h5"
+        ]
+    }
+}

@@ -1,0 +1,163 @@
+{
+    "run_idfeature": {
+        "stage_order": 1,
+        "parallelism": 24,
+        "num_tasks": 24,
+        "predecessors": {
+            "initial_data": {
+                "inputs": [
+                    "pr_rlut_mean_sam_\\d{10}\\.nc"
+                ]
+            }
+        },
+        "outputs": [
+            "cloudid_\\d{8}_\\d{6}\\.nc"
+        ]
+    },
+    "run_tracksingle": {
+        "stage_order": 2,
+        "parallelism": 24,
+        "num_tasks": 24,
+        "predecessors": {
+            "run_idfeature": {
+                "inputs": [
+                    "cloudid_\\d{8}_\\d{6}\\.nc"
+                ]
+            }
+        },
+        "outputs": [
+            "track_\\d{8}_\\d{6}\\.nc"
+        ]
+    },
+    "run_gettracks": {
+        "stage_order": 3,
+        "parallelism": 1,
+        "num_tasks": 1,
+        "predecessors": {
+            "run_tracksingle": {
+                "inputs": [
+                    "track_\\d{8}_\\d{6}\\.nc"
+                ]
+            },
+            "run_idfeature": {
+                "inputs": [
+                    "cloudid_\\d{8}_\\d{6}\\.nc"
+                ]
+            }
+        },
+        "outputs": [
+            "tracknumbers_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+        ]
+    },
+    "run_trackstats": {
+        "stage_order": 4,
+        "parallelism": 24,
+        "num_tasks": 24,
+        "predecessors": {
+            "run_gettracks": {
+                "inputs": [
+                    "tracknumbers_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+                        ]           
+            },
+            "run_idfeature": {
+                "inputs": [
+                    "cloudid_\\d{8}_\\d{6}\\.nc"
+                ]
+            }
+        },
+        "outputs": [
+            "trackstats_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc",
+            "trackstats_sparse_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+        ]
+    },
+    "run_identifymcs": {
+        "stage_order": 5,
+        "parallelism": 1,
+        "num_tasks": 1,
+        "predecessors": {
+            "run_trackstats": {
+                "inputs": [
+                    "trackstats_sparse_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+                        ]
+            }
+        },
+        "outputs": [
+            "mcs_tracks_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+        ]
+    },
+    "run_matchpf": {
+        "stage_order": 6,
+        "parallelism": 1,
+        "num_tasks": 1,
+        "predecessors": {
+            "run_identifymcs": {
+                "inputs": [
+                    "mcs_tracks_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+                        ]
+            }
+        },
+        "outputs": [
+            "mcs_tracks_pf_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+        ]
+    },
+    "run_robustmcs": {
+        "stage_order": 7,
+        "parallelism": 1,
+        "num_tasks": 1,
+        "predecessors": {
+            "run_matchpf": {
+                "inputs": [
+                    "mcs_tracks_pf_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+                    ]
+            }
+        },
+        "outputs": [
+            "mcs_tracks_robust_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+        ]
+    },
+    "run_mapfeature": {
+        "stage_order": 8,
+        "parallelism": 24,
+        "num_tasks": 24,
+        "predecessors": {
+            "run_robustmcs": {
+                "inputs": [
+                    "mcs_tracks_robust_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+                        ]
+            },
+            "run_idfeature": {
+                "inputs": [
+                    "cloudid_\\d{8}_\\d{6}\\.nc"  
+                ]
+            },
+            "initial_data": {
+                "inputs": [
+                    "IMERG_landmask_180W-180E_60S-60N.nc"
+                ]
+            }
+        },
+        "outputs": [
+            "mcstrack_\\d{8}_\\d{6}\\.nc"
+        ]
+    },
+    "run_speed": {
+        "stage_order": 9,
+        "parallelism": 24,
+        "num_tasks": 24,
+        "predecessors": {
+            "run_mapfeature": {
+                "inputs": [
+                    "mcstrack_\\d{8}_\\d{6}\\.nc"
+                        ]
+            },
+            "run_robustmcs": {
+                "inputs": [
+                    "mcs_tracks_robust_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+                ]
+            }
+        },
+        "outputs": [
+            "mcs_tracks_final_\\d{8}\\.\\d{4}_\\d{8}\\.\\d{4}\\.nc"
+        ]
+    }
+}

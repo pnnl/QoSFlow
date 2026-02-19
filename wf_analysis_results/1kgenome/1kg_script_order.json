@@ -1,0 +1,114 @@
+{
+    "individuals": {
+        "stage_order": 1,
+        "parallelism": 300,
+        "num_tasks": 300,
+        "predecessors": {
+            "initial_data": {
+                "inputs": [
+                    "ALL\\.chr.*\\.250000\\.vcf",
+                    "columns\\.txt"
+                ]
+            }
+        },
+        "outputs": [
+            "chr.*n-.*-.*\\.tar\\.gz"
+        ]
+    },
+    "individuals_merge": {
+        "stage_order": 2,
+        "parallelism": 10,
+        "num_tasks": 10,
+        "predecessors": {
+            "individuals": {
+                "inputs": [
+                    "chr.*n-.*-.*\\.tar\\.gz"
+                ]
+            }
+        },
+        "outputs": [
+            "chr.*n\\.tar\\.gz"
+        ]
+    },
+    "sifting": {
+        "stage_order": 2,
+        "parallelism": 10,
+        "num_tasks": 10,
+        "predecessors": {
+            "initial_data": {
+                "inputs": [
+                    "ALL\\.chr([1-9]|10)\\.phase3_shapeit2_mvncall_integrated_v5\\.20130502\\.sites\\.annotation\\.vcf"
+                        ]
+            }
+        },
+        "outputs": [
+            "sifted.*\\.txt"
+        ]
+    },
+    "mutation_overlap": {
+        "stage_order": 3,
+        "parallelism": 10,
+        "num_tasks": 10,
+        "predecessors":{
+            "initial_data": {
+                "inputs": [
+                    "SAS",
+                    "EAS",
+                    "GBR",
+                    "AMR",
+                    "AFR",
+                    "EUR",
+                    "ALL",
+                    "columns\\.txt"
+                ]
+            },
+            "sifting": {
+                "inputs": [
+                    "sifted.*\\.txt"
+                ]
+            },
+            "individuals_merge": {
+                "inputs": [
+                    "chr.*n\\.tar\\.gz"
+                ]
+            }
+        },
+
+        "outputs": [
+            "chr\\d+-[A-Z]{3}\\.tar\\.gz$",
+            "chr\\d+-[A-Z]{3}\\.txt\\.tar\\.gz$"
+        ]
+    },
+    "frequency": {
+        "stage_order": 3,
+        "parallelism": 10,
+        "num_tasks": 10,
+        "predecessors": {
+            "initial_data": {
+                "inputs": [
+                    "SAS",
+                    "EAS",
+                    "GBR",
+                    "AMR",
+                    "AFR",
+                    "EUR",
+                    "ALL",
+                    "columns\\.txt"
+                ]
+            },
+            "individuals_merge":{
+                "inputs": [
+                    "chr.*\\.tar\\.gz"
+                ]
+            },
+            "sifting": {
+                "inputs": [
+                    "sifted.*\\.txt"
+                ]
+            }
+        },
+        "outputs": [
+            "chr\\d+-[A-Z]{3}\\-freq\\.tar\\.gz$"
+        ]
+    }
+}
