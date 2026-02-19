@@ -1,10 +1,32 @@
-# QoSFlow
+<!-- -*-Mode: markdown;-*- -->
+<!-- $Id: 4098d4ffce45696ec3497ad9e08e712906c9d8fe $ -->
+
+QoSFlow
+=============================================================================
+
+**Home**:
+  - [QoSFlow](https://github.com/pnnl/QoSFlow),
+    part of [DataFlowDrs](https://github.com/pnnl/DataFlowDrs)
+  
+  - [Performance Lab for EXtreme Computing and daTa](https://github.com/PerfLab-EXaCT)
+
+
+**About**: 
+
+🆕 To enable Quality of Service scheduling constraints (e.g., minimize time, limit execution to resource subsets) for scientific workflows, QoSFlow uses rapid reasoning over the large configuration space that is driven by predictive models rather than costly executions. QoSFlow partitions a workflow's execution configuration space into regions with similar behavior. Each region groups configurations with comparable execution times according to a given statistical sensitivity, enabling efficient QoS-driven scheduling through analytical reasoning rather than exhaustive testing. The analytical reasoning is enabled with interpretable models that highlight the key workflow paths that determine performance; distinguish which configuration parameters are critical vs. flexible; and in turn explain the critical path's performance using analytical dataflow expressions.
+
 
 QoSFlow is a framework for **QoS-aware configuration search** on scientific workflows. It combines (i) *workflow scaling rules* with (ii) an SPM-driven makespan table and (iii) *region identification* via decision trees to produce **interpretable regions** of configurations and fast QoS-oriented recommendations.
 
 > The associated research manuscript is under double‑blind review. This repository is organized to reproduce the core pipeline while keeping manuscript identity anonymous.
 
----
+
+**Contributors**:
+  - Md Hasanur Rashid <!-- https://www.linkedin.com/in/hasanurrashid95/ https://scholar.google.com.ec/citations?user=bxJd9ukAAAAJ&hl=fil -->
+
+
+Using
+-----------------------------------------------------------------------------
 
 ## Repository Layout (top-level)
 
