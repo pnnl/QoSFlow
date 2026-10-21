@@ -36,7 +36,7 @@ References
 
 * **Specific**: Md Hasanur Rashid, Jesun Firoz, Nathan R. Tallent, Luanzheng Guo, Meng Tang, and Dong Dai. "QoSFlow: Ensuring Service Quality of Distributed Workflows Using Interpretable Sensitivity Models." Proc. of the 40th IEEE Intl. Parallel and Distributed Processing Symp., IPDPS '26, pp. 1372-1387, IEEE Computer Society, May 2026. ([doi: 10.1109/IPDPS65963.2026.00112](https://doi.org/10.1109/IPDPS65963.2026.00112))
 
-- All related: [DataFlowDrs](https://github.com/pnnl/DataFlowDrs)
+- For all related references, see [DataFlowDrs](https://github.com/pnnl/DataFlowDrs)
 
 
 ## License
