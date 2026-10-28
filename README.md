@@ -31,7 +31,7 @@ QoSFlow is a framework for **QoS-aware configuration search** on scientific work
 
 ## References
 
-- **Overview**: Nathan R. Tallent, Meng Tang, Zhen Peng, Jesun Firoz, Luanzheng Guo, Anthony Kougkas, and Xian-He Sun. "DataFlowDrs: Automating Performance Optimization of Data Flow Within HPC Workflows." IEEE Transactions on Parallel and Distributed Systems, Vol. 37, pp. 2619-2636, December 2026. ([doi: 10.1109/TPDS.2026.3722592](https://doi.org/10.1109/TPDS.2026.3722592))
+- **Overview Citation**: Nathan R. Tallent, Meng Tang, Zhen Peng, Jesun Firoz, Luanzheng Guo, Anthony Kougkas, and Xian-He Sun. "DataFlowDrs: Automating Performance Optimization of Data Flow Within HPC Workflows." IEEE Transactions on Parallel and Distributed Systems, Vol. 37, pp. 2619-2636, December 2026. ([doi: 10.1109/TPDS.2026.3722592](https://doi.org/10.1109/TPDS.2026.3722592))
 
 - **Specific**: Md Hasanur Rashid, Jesun Firoz, Nathan R. Tallent, Luanzheng Guo, Meng Tang, and Dong Dai. "QoSFlow: Ensuring Service Quality of Distributed Workflows Using Interpretable Sensitivity Models." Proc. of the 40th IEEE Intl. Parallel and Distributed Processing Symp., IPDPS '26, pp. 1372-1387, IEEE Computer Society, May 2026. ([doi: 10.1109/IPDPS65963.2026.00112](https://doi.org/10.1109/IPDPS65963.2026.00112))
 
@@ -77,6 +77,7 @@ QoSFlow/
 QoSFlow follows a **three-phase** flow. The corrections below make explicit how **DPM** is used and where the cost formulation occurs.
 
 ### Phase 1 — Inputs and Scale Projection
+
 1. **Author scaling rules** → place rule files for each workflow stage in `wf_scaling_rules/`. Rules describe how data volumes/accesses/concurrency **change with scale** (task/data fan-in/out, replication, etc.).  
 2. **Provide raw observations** → place the baseline, *observed* per‑stage primitives in `wf_raw_data_csvs/`.  
 3. **Apply scaling rules to raw data** → the rules are applied to the files in `wf_raw_data_csvs/` to **project** per‑stage I/O and concurrency to the **target scale**. The result is a *scaled* dataset that becomes the input to DPM.
@@ -84,6 +85,7 @@ QoSFlow follows a **three-phase** flow. The corrections below make explicit how 
 > ✅ **Clarification**: *Scaling rules act on raw_data_csvs to synthesize target‑scale per‑stage stats. These scaled stats are then consumed by DPM.*
 
 ### Phase 2 — DPM Results (External to this work)
+
 4. **Run DPM** → feed the *scaled* per‑stage data into the **DPM framework** (external component; **not the scope of this repository**) to compute per‑configuration makespans.  
    - Output: `wf_spm_result_csvs/<workflow>/<scale>_filtered_spm_results.csv` (naming may vary).  
    - These CSVs are the **DPM results derived by processing raw_data_csvs through scaling**.
@@ -91,6 +93,7 @@ QoSFlow follows a **three-phase** flow. The corrections below make explicit how 
 > ✅ **Clarification**: *DPM results are collected from the DPM framework. They are **derived** by first processing `wf_raw_data_csvs/` with scaling rules and then evaluating with DPM. This repository treats DPM as a producer of makespan tables and does not re‑implement DPM.*
 
 ### Phase 3 — Cost, Regions, and QoS
+
 5. **Cost formulation & decomposition (from DPM results)** → the code in `wf_cost_modeling/` **consumes DPM CSVs** from `wf_spm_result_csvs/` to compute cost breakdowns (e.g., shared vs. local I/O vs. movement) and any auxiliary summaries needed downstream.  
    - **Important**: cost formulation happens **after** DPM and is **based on DPM outputs**, not raw data directly.
 6. **CART-based region identification** → run `wf_cart_analysis/` to:
