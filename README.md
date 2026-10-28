@@ -1,8 +1,7 @@
 <!-- -*-Mode: markdown;-*- -->
 <!-- $Id: 4098d4ffce45696ec3497ad9e08e712906c9d8fe $ -->
 
-QoSFlow
-=============================================================================
+# QoSFlow
 
 **Home**:
   - [QoSFlow](https://github.com/pnnl/QoSFlow), part of [DataFlowDrs](https://github.com/pnnl/DataFlowDrs)
@@ -30,11 +29,11 @@ QoSFlow is a framework for **QoS-aware configuration search** on scientific work
   - Md Hasanur Rashid ([www](https://www.linkedin.com/in/hasanurrashid95/))
 
 
-References
------------------------------------------------------------------------------
+## References
+
 - **Overview**: Nathan R. Tallent, Meng Tang, Zhen Peng, Jesun Firoz, Luanzheng Guo, Anthony Kougkas, and Xian-He Sun. "DataFlowDrs: Automating Performance Optimization of Data Flow Within HPC Workflows." IEEE Transactions on Parallel and Distributed Systems, Vol. 37, pp. 2619-2636, December 2026. ([doi: 10.1109/TPDS.2026.3722592](https://doi.org/10.1109/TPDS.2026.3722592))
 
-* **Specific**: Md Hasanur Rashid, Jesun Firoz, Nathan R. Tallent, Luanzheng Guo, Meng Tang, and Dong Dai. "QoSFlow: Ensuring Service Quality of Distributed Workflows Using Interpretable Sensitivity Models." Proc. of the 40th IEEE Intl. Parallel and Distributed Processing Symp., IPDPS '26, pp. 1372-1387, IEEE Computer Society, May 2026. ([doi: 10.1109/IPDPS65963.2026.00112](https://doi.org/10.1109/IPDPS65963.2026.00112))
+- **Specific**: Md Hasanur Rashid, Jesun Firoz, Nathan R. Tallent, Luanzheng Guo, Meng Tang, and Dong Dai. "QoSFlow: Ensuring Service Quality of Distributed Workflows Using Interpretable Sensitivity Models." Proc. of the 40th IEEE Intl. Parallel and Distributed Processing Symp., IPDPS '26, pp. 1372-1387, IEEE Computer Society, May 2026. ([doi: 10.1109/IPDPS65963.2026.00112](https://doi.org/10.1109/IPDPS65963.2026.00112))
 
 - For all related references, see [DataFlowDrs](https://github.com/pnnl/DataFlowDrs)
 
@@ -44,8 +43,8 @@ References
 BSD 2-clause license: [README-License.txt](/README-License.txt)
 
 
-Acknowledgements
------------------------------------------------------------------------------
+## Acknowledgements
+
 This work was supported by the U.S. Department of Energy's Office of
 Advanced Scientific Computing Research:
 
@@ -147,4 +146,3 @@ Create/activate a virtual environment and install module‑level requirements as
 - DPM is treated as a **black box producer** of makespan tables. This repo documents **how DPM outputs are used**, not how DPM itself is implemented.
 - Keep workflow‑specific artifacts grouped under the results directories to avoid cluttering the repo root.
 - For double‑blind review, avoid manuscript-identifying strings in filenames/figures.
-
